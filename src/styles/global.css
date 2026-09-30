@@ -87,44 +87,38 @@ body {
 .delay-10 { animation-delay: 0.5s; }
 
 /* ============================================
-   Card styles matching ameye.dev
+   Card styles matching neo-brutalist style
    ============================================ */
 
 .card {
   background-color: #fff;
-  border: 1px solid #e8e4dc;
-  border-radius: 12px;
+  border: 2px solid #000;
+  border-radius: 0;
 }
 
 .card-hover {
-  transition: all 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .card-hover:hover {
-  border-color: #d1cdc4;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-color: #000;
+  box-shadow: 3px 3px 0px #000;
+  transform: translate(-2px, -2px);
 }
-
-/* Note card accent borders */
-.accent-blue { border-left: 3px solid #60a5fa; }
-.accent-teal { border-left: 3px solid #2dd4bf; }
-.accent-orange { border-left: 3px solid #fb923c; }
-.accent-purple { border-left: 3px solid #a78bfa; }
-.accent-pink { border-left: 3px solid #f472b6; }
 
 /* Category tabs */
 .tab-active {
-  background-color: #1a1a1a;
-  color: #fff;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .tab-inactive {
   background-color: transparent;
-  color: #6b7280;
+  color: #000000;
 }
 
 .tab-inactive:hover {
-  color: #1a1a1a;
+  color: #000000;
   background-color: #f0ece4;
 }
 

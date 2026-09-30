@@ -18,22 +18,31 @@ const allTags = [...new Set(notes.map((n) => n.data.tag).filter(Boolean))] as st
 
   <section class="max-w-3xl mx-auto px-6 mt-8">
     <!-- Section heading -->
-    <h1 class="text-2xl font-bold text-[#1a1a1a] mb-5 animate-fade-in-up delay-2">
+    <h1 class="font-sans text-2xl font-bold text-[#1a1a1a] mb-5 animate-fade-in-up delay-2">
       My adventures in
     </h1>
 
     <!-- Category tabs -->
-    <div class="flex rounded-xl border border-[#e8e4dc] overflow-hidden mb-6 animate-fade-in-up delay-3" id="category-tabs">
+    <div
+      class="flex rounded-none border-2 border-black p-1 gap-1 overflow-x-auto sm:overflow-hidden mb-6 animate-fade-in-up delay-3 bg-white [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      id="category-tabs"
+      role="tablist"
+      aria-label="Category filters"
+    >
       <button
         data-category="all"
-        class="tab-btn flex-1 py-2.5 text-sm font-medium transition-all duration-200 tab-active"
+        role="tab"
+        aria-selected="true"
+        class="tab-btn flex-1 py-1.5 px-1.5 sm:px-2 text-xs sm:text-sm font-semibold transition-all duration-200 tab-active bg-black text-white rounded-none whitespace-nowrap"
       >
         all
       </button>
       {allTags.map((tag) => (
         <button
           data-category={tag}
-          class="tab-btn flex-1 py-2.5 text-sm font-medium transition-all duration-200 tab-inactive"
+          role="tab"
+          aria-selected="false"
+          class="tab-btn flex-1 py-1.5 px-1.5 sm:px-2 text-xs sm:text-sm font-medium transition-all duration-200 tab-inactive bg-transparent text-black rounded-none whitespace-nowrap"
         >
           {tag.toLowerCase()}
         </button>
@@ -64,32 +73,45 @@ const allTags = [...new Set(notes.map((n) => n.data.tag).filter(Boolean))] as st
 
 <script>
   // Category tab filtering
-  document.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tab-btn');
-    const notes = document.querySelectorAll('.note-item');
+  function initCategoryTabs() {
+    const container = document.getElementById('category-tabs');
+    if (!container || container.dataset.bound === 'true') return;
+    container.dataset.bound = 'true';
+
+    const tabs = container.querySelectorAll<HTMLButtonElement>('.tab-btn');
+    const notes = document.querySelectorAll<HTMLElement>('.note-item');
 
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         const category = tab.getAttribute('data-category');
 
-        // Update tab styles
+        // Update tab styles and ARIA attributes
         tabs.forEach((t) => {
-          t.classList.remove('tab-active');
-          t.classList.add('tab-inactive');
+          t.classList.remove('tab-active', 'bg-black', 'text-white', 'font-semibold');
+          t.classList.add('tab-inactive', 'bg-transparent', 'text-black', 'font-medium');
+          t.setAttribute('aria-selected', 'false');
         });
-        tab.classList.remove('tab-inactive');
-        tab.classList.add('tab-active');
+        tab.classList.remove('tab-inactive', 'bg-transparent', 'text-black', 'font-medium');
+        tab.classList.add('tab-active', 'bg-black', 'text-white', 'font-semibold');
+        tab.setAttribute('aria-selected', 'true');
 
         // Filter notes
         notes.forEach((note) => {
           const noteTag = note.getAttribute('data-tag');
           if (category === 'all' || noteTag === category) {
-            (note as HTMLElement).style.display = '';
+            note.style.display = '';
           } else {
-            (note as HTMLElement).style.display = 'none';
+            note.style.display = 'none';
           }
         });
       });
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCategoryTabs);
+  } else {
+    initCategoryTabs();
+  }
+  document.addEventListener('astro:page-load', initCategoryTabs);
 </script>
