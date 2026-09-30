@@ -1,0 +1,33 @@
+---
+title: "Procedural Textures in Substance Designer"
+description: "Creating reusable procedural materials for game environments."
+pubDate: 2024-12-05
+tag: "Tech Art"
+---
+
+Substance Designer is a powerful tool for creating procedural textures. Unlike hand-painted textures, procedural materials are resolution-independent, highly customizable, and perfect for building material libraries.
+
+## Why Procedural?
+
+- **Scalability**: One graph can generate infinite variations
+- **Resolution Independence**: Output at any resolution without quality loss
+- **Iteration Speed**: Tweak parameters instead of repainting
+- **Consistency**: Maintain a unified art style across your project
+
+## Building a Basic Stone Material
+
+Start with noise nodes as the foundation:
+
+1. **Base Shape**: Use a `Cells` or `Voronoi` noise for the stone pattern
+2. **Height Detail**: Layer `Perlin Noise` for surface variation
+3. **Edge Wear**: Use `Slope Blur` and `Ambient Occlusion` for realistic edges
+4. **Color**: Gradient map with subtle color variation
+
+## Tips for Game-Ready Materials
+
+- Keep your graph clean and well-organized
+- Use exposed parameters for artist-friendly controls
+- Always test at the target resolution (mobile often uses 512x512 or 1024x1024)
+- Consider channel packing for mobile (RGB + A)
+
+Procedural workflows are essential for modern game development, especially when building large open-world environments.

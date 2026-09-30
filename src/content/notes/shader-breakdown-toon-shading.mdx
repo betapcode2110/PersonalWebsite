@@ -1,0 +1,66 @@
+---
+title: "Shader Breakdown: Toon Shading"
+description: "A deep dive into creating a stylized toon shader for mobile games."
+pubDate: 2025-01-10
+tag: "Shader"
+---
+
+Toon shading (or cel shading) is a popular technique for creating stylized visuals in games. Let's break down how to implement one that's performant enough for mobile.
+
+## The Concept
+
+Unlike physically-based rendering that simulates realistic lighting, toon shading quantizes the light into discrete steps, creating a flat, comic-book-like appearance.
+
+## Basic Implementation
+
+The core idea is simple: take the dot product of the surface normal and light direction, then step it into bands.
+
+```hlsl
+// Simple toon shading function
+half3 ToonShading(half3 normal, half3 lightDir, half3 baseColor)
+{
+    half NdotL = dot(normal, lightDir);
+    
+    // Quantize into 3 bands
+    half toon;
+    if (NdotL > 0.6)
+        toon = 1.0;
+    else if (NdotL > 0.2)
+        toon = 0.6;
+    else
+        toon = 0.3;
+    
+    return baseColor * toon;
+}
+```
+
+## Adding a Ramp Texture
+
+For more artistic control, use a 1D ramp texture instead of hard-coded steps:
+
+```hlsl
+half3 ToonShadingRamp(half3 normal, half3 lightDir, half3 baseColor, sampler2D rampTex)
+{
+    half NdotL = dot(normal, lightDir) * 0.5 + 0.5; // Remap to 0-1
+    half3 ramp = tex2D(rampTex, half2(NdotL, 0.5)).rgb;
+    return baseColor * ramp;
+}
+```
+
+## Edge Detection for Outlines
+
+To complete the toon look, we need outlines. A simple approach is the inverted hull method:
+
+1. Render the mesh normally
+2. Render again with front-face culling, vertices extruded along normals
+3. Color the extruded mesh black
+
+This creates clean outlines that work well on mobile without expensive post-processing.
+
+## Performance Considerations
+
+- Use `step()` instead of `if/else` for GPU-friendly branching
+- Keep the ramp texture small (256x1 is plenty)
+- Consider baking toon shading into vertex colors for very low-end devices
+
+Toon shading is a great way to achieve a distinctive art style while keeping performance in check.

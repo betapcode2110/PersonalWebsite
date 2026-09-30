@@ -1,0 +1,46 @@
+---
+title: "Mobile Game Optimization Tips"
+description: "Essential performance tips for mobile game development."
+pubDate: 2025-02-20
+tag: "Mobile Game"
+---
+
+Mobile game development presents unique challenges. Limited hardware, thermal throttling, and battery constraints mean every optimization counts.
+
+## Draw Call Reduction
+
+One of the most impactful optimizations for mobile is reducing draw calls. Here are some strategies:
+
+1. **Texture Atlasing** — Combine multiple textures into a single atlas
+2. **Mesh Batching** — Merge static meshes that share materials
+3. **GPU Instancing** — Use instancing for repeated objects
+4. **LOD Systems** — Reduce polygon count at distance
+
+## Shader Optimization
+
+Mobile GPUs have different architectures than desktop GPUs. Keep these in mind:
+
+- Avoid complex math in fragment shaders
+- Use `lowp` and `mediump` precision where possible
+- Minimize texture samples per fragment
+- Avoid branching in shaders
+
+## Memory Management
+
+Mobile devices have limited memory. Efficient memory usage is critical:
+
+- Compress textures using ASTC or ETC2
+- Stream assets when possible
+- Pool and reuse objects to reduce GC pressure
+- Monitor memory usage with platform-specific profilers
+
+## Profiling Tools
+
+| Tool | Platform | Best For |
+|------|----------|----------|
+| RenderDoc | Cross-platform | GPU debugging |
+| Xcode Instruments | iOS | CPU/GPU profiling |
+| Android GPU Inspector | Android | GPU analysis |
+| Unity Profiler | Unity | Overall profiling |
+
+Optimization is an ongoing process. Profile early, profile often.

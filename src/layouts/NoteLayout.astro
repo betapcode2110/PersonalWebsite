@@ -1,0 +1,55 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  pubDate?: Date;
+  updatedDate?: Date;
+  tag?: string;
+}
+
+const { title, description, pubDate, updatedDate, tag } = Astro.props;
+---
+
+<BaseLayout title={`${title} — hoanhi`} description={description}>
+  <article class="max-w-3xl mx-auto px-6 py-12">
+    <!-- Back link -->
+    <a href="/" class="inline-flex items-center gap-1.5 text-sm text-[#6b7280] hover:text-[#1a1a1a] transition-colors mb-8 group">
+      <svg class="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to notes
+    </a>
+
+    <!-- Header -->
+    <header class="mb-10 animate-fade-in-up">
+      <div class="flex items-center gap-3 mb-3">
+        {tag && (
+          <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-[#f0ece4] text-[#6b7280] border border-[#e8e4dc]">
+            {tag}
+          </span>
+        )}
+        {pubDate && (
+          <time class="text-sm text-[#6b7280]" datetime={pubDate.toISOString()}>
+            {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+        )}
+      </div>
+      <h1 class="text-3xl font-bold text-[#1a1a1a] leading-tight">{title}</h1>
+      {description && (
+        <p class="text-[#6b7280] mt-3 text-lg">{description}</p>
+      )}
+      {updatedDate && (
+        <p class="text-sm text-[#9ca3af] mt-3">
+          Last updated: {updatedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </p>
+      )}
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-lg max-w-none animate-fade-in-up delay-2">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

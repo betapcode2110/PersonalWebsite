@@ -1,0 +1,39 @@
+---
+title: "Getting Started with Tech Art"
+description: "An introduction to technical art and what it means in game development."
+pubDate: 2025-03-15
+tag: "Tech Art"
+---
+
+Technical art sits at the intersection of art and engineering in game development. It's a discipline that bridges the gap between artists and programmers, ensuring that creative visions can be realized within technical constraints.
+
+## What is Technical Art?
+
+A Technical Artist (TA) is someone who understands both the artistic and technical aspects of game development. They create tools, pipelines, and solutions that help artists work more efficiently while ensuring optimal performance.
+
+## Core Skills
+
+- **Shader Development**: Writing custom shaders for unique visual effects
+- **Pipeline Development**: Building tools and workflows for content creation
+- **Performance Optimization**: Ensuring art assets run efficiently on target platforms
+- **Rigging & Animation**: Technical character setup and animation systems
+- **Procedural Generation**: Creating content through algorithms and rules
+
+## Why Tech Art Matters
+
+As games become more complex, the role of the Technical Artist becomes increasingly important. They are the translators between departments, the problem solvers who find creative solutions to technical challenges.
+
+```python
+# Example: A simple batch texture processor
+import os
+from PIL import Image
+
+def batch_resize(input_dir, output_dir, size=(1024, 1024)):
+    for filename in os.listdir(input_dir):
+        if filename.endswith(('.png', '.jpg', '.tga')):
+            img = Image.open(os.path.join(input_dir, filename))
+            img = img.resize(size, Image.LANCZOS)
+            img.save(os.path.join(output_dir, filename))
+```
+
+Stay tuned for more posts about tech art, shader development, and game optimization.

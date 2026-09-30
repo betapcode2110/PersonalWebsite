@@ -1,0 +1,30 @@
+---
+const pathname = Astro.url.pathname;
+---
+
+<header class="pt-6 pb-2">
+  <nav class="max-w-3xl mx-auto px-6 flex items-center justify-center gap-2">
+    <a
+      href="/"
+      class:list={[
+        'text-sm font-medium px-5 py-2 rounded-full transition-all duration-200',
+        pathname === '/' || pathname.startsWith('/notes')
+          ? 'bg-[#dce8f8] text-[#2563eb]'
+          : 'text-[#6b7280] hover:text-[#1a1a1a] hover:bg-[#f0ece4]',
+      ]}
+    >
+      / notes
+    </a>
+    <a
+      href="/projects"
+      class:list={[
+        'text-sm font-medium px-5 py-2 rounded-full transition-all duration-200',
+        pathname === '/projects'
+          ? 'bg-[#dce8f8] text-[#2563eb]'
+          : 'text-[#6b7280] hover:text-[#1a1a1a] hover:bg-[#f0ece4]',
+      ]}
+    >
+      / projects
+    </a>
+  </nav>
+</header>

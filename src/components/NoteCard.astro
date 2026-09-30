@@ -1,0 +1,72 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  tag?: string;
+  icon?: string;
+  pubDate?: Date;
+  heroImage?: string;
+  delay?: number;
+}
+
+const { title, description, slug, tag, icon = '📝', pubDate, heroImage, delay = 0 } = Astro.props;
+
+// Format date like "September 2023"
+const formattedDate = pubDate
+  ? pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  : '';
+
+// Accent colors based on tag
+const accentColors: Record<string, string> = {
+  'Tech Art': 'border-l-[#60a5fa]',
+  'Mobile Game': 'border-l-[#2dd4bf]',
+  'Shader': 'border-l-[#a78bfa]',
+};
+const accentClass = tag ? (accentColors[tag] || 'border-l-[#fb923c]') : 'border-l-[#60a5fa]';
+---
+
+<a
+  href={`/notes/${slug}/`}
+  class:list={[
+    'block card card-hover overflow-hidden border-l-[3px] animate-fade-in-up',
+    accentClass,
+    `delay-${delay}`,
+  ]}
+>
+  <div class="flex">
+    <!-- Content side -->
+    <div class="flex-1 p-5 flex flex-col justify-between min-w-0">
+      <div>
+        <h2 class="text-[15px] font-semibold text-[#1a1a1a] leading-snug">
+          <span class="mr-1">{icon}</span>
+          {title}
+        </h2>
+        <p class="text-sm text-[#6b7280] mt-2 leading-relaxed line-clamp-2">
+          {description}
+        </p>
+      </div>
+      {formattedDate && (
+        <p class="text-xs font-medium text-[#1a1a1a] mt-4">
+          {formattedDate}
+        </p>
+      )}
+    </div>
+
+    <!-- Image side -->
+    {heroImage ? (
+      <div class="w-[280px] shrink-0 overflow-hidden">
+        <img
+          src={heroImage}
+          alt={title}
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    ) : (
+      <div class="w-[280px] shrink-0 bg-gradient-to-br from-[#f0ece4] to-[#e8e4dc] flex items-center justify-center">
+        <span class="text-4xl opacity-40">{icon}</span>
+      </div>
+    )}
+  </div>
+</a>

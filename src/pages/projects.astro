@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import projects from '../data/projects.json';
+---
+
+<BaseLayout title="Projects — hoanhi">
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <div class="animate-fade-in-up">
+      <h1 class="text-2xl font-bold text-[#1a1a1a] mb-2">Things I worked on</h1>
+      <p class="text-[#6b7280] mb-10 leading-relaxed">
+        An overview of some of the projects I have worked on. Some smaller, some bigger.
+        Hover over the videos to watch them play.
+      </p>
+    </div>
+
+    <div class="grid gap-6">
+      {projects.map((project: any, i: number) => (
+        <ProjectCard
+          title={project.title}
+          description={project.description}
+          link={project.link}
+          videoSrc={project.videoSrc}
+          imageSrc={project.imageSrc}
+          delay={Math.min(i + 1, 10)}
+        />
+      ))}
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-[#e8e4dc] animate-fade-in-up delay-5">
+      <p class="text-[#6b7280]">
+        Want to work with me or get in touch?
+      </p>
+      <p class="mt-2">
+        <span class="mr-1">✉️</span>
+        <a
+          href="mailto:tranhoan2971999@gmail.com"
+          class="text-[#1a1a1a] border-b border-dashed border-[#9ca3af] hover:border-[#1a1a1a] transition-colors"
+        >
+          tranhoan2971999@gmail.com
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

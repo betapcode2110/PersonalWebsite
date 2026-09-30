@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import NoteCard from '../components/NoteCard.astro';
+import Timeline from '../components/Timeline.astro';
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('notes'))
+  .filter((note) => !note.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get unique categories/tags for tabs
+const allTags = [...new Set(notes.map((n) => n.data.tag).filter(Boolean))] as string[];
+---
+
+<BaseLayout title="hoanhi — Technical Artist / 3D Technical Lead">
+  <HeroSection />
+
+  <section class="max-w-3xl mx-auto px-6 mt-8">
+    <!-- Section heading -->
+    <h1 class="text-2xl font-bold text-[#1a1a1a] mb-5 animate-fade-in-up delay-2">
+      My adventures in
+    </h1>
+
+    <!-- Category tabs -->
+    <div class="flex rounded-xl border border-[#e8e4dc] overflow-hidden mb-6 animate-fade-in-up delay-3" id="category-tabs">
+      <button
+        data-category="all"
+        class="tab-btn flex-1 py-2.5 text-sm font-medium transition-all duration-200 tab-active"
+      >
+        all
+      </button>
+      {allTags.map((tag) => (
+        <button
+          data-category={tag}
+          class="tab-btn flex-1 py-2.5 text-sm font-medium transition-all duration-200 tab-inactive"
+        >
+          {tag.toLowerCase()}
+        </button>
+      ))}
+    </div>
+
+    <!-- Notes grid -->
+    <div class="space-y-4" id="notes-grid">
+      {notes.map((note, i) => (
+        <div data-tag={note.data.tag || 'all'} class="note-item">
+          <NoteCard
+            title={note.data.title}
+            description={note.data.description}
+            slug={note.slug}
+            tag={note.data.tag}
+            icon={note.data.tag === 'Tech Art' ? '🎨' : note.data.tag === 'Mobile Game' ? '📱' : note.data.tag === 'Shader' ? '✨' : '📝'}
+            pubDate={note.data.pubDate}
+            heroImage={note.data.heroImage}
+            delay={Math.min(i + 4, 10)}
+          />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Timeline />
+</BaseLayout>
+
+<script>
+  // Category tab filtering
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const notes = document.querySelectorAll('.note-item');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const category = tab.getAttribute('data-category');
+
+        // Update tab styles
+        tabs.forEach((t) => {
+          t.classList.remove('tab-active');
+          t.classList.add('tab-inactive');
+        });
+        tab.classList.remove('tab-inactive');
+        tab.classList.add('tab-active');
+
+        // Filter notes
+        notes.forEach((note) => {
+          const noteTag = note.getAttribute('data-tag');
+          if (category === 'all' || noteTag === category) {
+            (note as HTMLElement).style.display = '';
+          } else {
+            (note as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
