@@ -9,17 +9,17 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.10",
-    "@astrojs/mdx": "^4.2.6",
-    "@astrojs/sitemap": "^3.3.1",
-    "@astrojs/rss": "^4.0.11",
     "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.2.6",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.3.1",
+    "astro": "^5.7.10",
     "sharp": "^0.33.5",
     "typescript": "^5.7.3"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.7",
-    "tailwindcss": "^4.1.7",
-    "@tailwindcss/typography": "^0.5.16"
+    "tailwindcss": "^4.1.7"
   }
 }

@@ -1,10 +1,11 @@
 ---
-title: "Building an Art Pipeline for Mobile Games"
-description: "How to set up an efficient art production pipeline for mobile game development."
+title: Building an Art Pipeline for Mobile Games
+description: How to set up an efficient art production pipeline for mobile game development.
 pubDate: 2024-11-20
-tag: "Mobile Game"
+tag: Mobile Game
+heroImage: /images/image-1-.png
+draft: false
 ---
-
 A well-designed art pipeline is the backbone of any successful game project. For mobile games, the pipeline needs to be especially optimized for the constraints of mobile hardware.
 
 ## Pipeline Overview
@@ -19,31 +20,39 @@ A typical mobile game art pipeline includes:
 6. **Integration** → Import into engine with proper settings
 7. **Optimization** → LODs, compression, batching
 
+
+
+![](/images/image-1-.png)
+
+
+
 ## Key Considerations
 
 ### Polygon Budgets
 
-| Asset Type | Triangle Budget |
-|------------|----------------|
-| Hero Character | 5,000 - 15,000 |
-| NPCs | 2,000 - 8,000 |
-| Environment Props | 100 - 2,000 |
-| Vehicles | 3,000 - 10,000 |
+| Asset Type        | Triangle Budget |
+| ----------------- | --------------- |
+| Hero Character    | 5,000 - 15,000  |
+| NPCs              | 2,000 - 8,000   |
+| Environment Props | 100 - 2,000     |
+| Vehicles          | 3,000 - 10,000  |
 
 ### Texture Budgets
 
-- Characters: 1024x1024 (hero), 512x512 (NPCs)
-- Environment: 512x512 with atlasing
-- UI: Power of 2, compressed
-- Effects: 256x256 or smaller
+* Characters: 1024x1024 (hero), 512x512 (NPCs)
+* Environment: 512x512 with atlasing
+* UI: Power of 2, compressed
+* Effects: 256x256 or smaller
 
 ## Automation Tools
 
+![](/images/image-2-.png)
+
 As a Technical Artist, building automation tools is key:
 
-- **Export scripts** for consistent asset naming and settings
-- **Validation tools** to catch common errors before they hit the engine
-- **Batch processors** for texture compression and optimization
-- **Asset auditing** dashboards to track budgets
+* **Export scripts** for consistent asset naming and settings
+* **Validation tools** to catch common errors before they hit the engine
+* **Batch processors** for texture compression and optimization
+* **Asset auditing** dashboards to track budgets
 
 A good pipeline reduces friction and lets artists focus on what they do best — creating beautiful art.

@@ -93,7 +93,7 @@ body {
 .card {
   background-color: #fff;
   border: 2px solid #000;
-  border-radius: 0;
+  border-radius: 0.375rem;
 }
 
 .card-hover {

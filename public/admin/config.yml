@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "notes"
+    label: "Notes (Bài viết)"
+    folder: "src/content/notes"
+    create: true
+    slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - {label: "Tiêu đề", name: "title", widget: "string"}
+      - {label: "Mô tả ngắn", name: "description", widget: "text"}
+      - {label: "Ngày đăng", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Ngày cập nhật", name: "updatedDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false}
+      - {label: "Thẻ (Tag)", name: "tag", widget: "select", options: ["Tech Art", "Mobile Game", "Shader", "Design"], default: "Tech Art", required: false}
+      - {label: "Ảnh bìa", name: "heroImage", widget: "image", required: false}
+      - {label: "Bản nháp", name: "draft", widget: "boolean", default: false}
+      - {label: "Nội dung", name: "body", widget: "markdown"}

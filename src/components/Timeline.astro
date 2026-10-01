@@ -16,7 +16,7 @@ const timelineItems = [
 ---
 
 <section class="max-w-3xl mx-auto px-6 py-16 mt-12 border-t-2 border-black">
-  <div class="card border-2 border-black rounded-none px-6 py-4 mb-8 animate-fade-in-up bg-white">
+  <div class="card border-2 border-black rounded-md px-6 py-4 mb-8 animate-fade-in-up bg-white">
     <p class="text-[#4b5563] text-[15px]">
       Let's find out!
       <a
@@ -32,8 +32,8 @@ const timelineItems = [
     {timelineItems.map((item, i) => (
       <div class:list={['flex gap-4 items-start py-4 border-l-2 border-black pl-6 relative', 'animate-fade-in-up', `delay-${i + 3}`]}>
         {/* Timeline dot */}
-        <div class="absolute -left-[9px] top-5 w-4 h-4 rounded-none bg-white border-2 border-black flex items-center justify-center">
-          <div class="w-1.5 h-1.5 rounded-none bg-black"></div>
+        <div class="absolute -left-[9px] top-5 w-4 h-4 rounded-full bg-white border-2 border-black flex items-center justify-center">
+          <div class="w-1.5 h-1.5 rounded-full bg-black"></div>
         </div>
         
         <span class="text-xl shrink-0">{item.emoji}</span>

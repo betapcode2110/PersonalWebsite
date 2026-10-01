@@ -24,7 +24,7 @@ const allTags = [...new Set(notes.map((n) => n.data.tag).filter(Boolean))] as st
 
     <!-- Category tabs -->
     <div
-      class="flex rounded-none border-2 border-black p-1 gap-1 overflow-x-auto sm:overflow-hidden mb-6 animate-fade-in-up delay-3 bg-white [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      class="flex rounded-md border-2 border-black p-1 gap-1 overflow-x-auto sm:overflow-hidden mb-6 animate-fade-in-up delay-3 bg-white [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       id="category-tabs"
       role="tablist"
       aria-label="Category filters"
@@ -33,7 +33,7 @@ const allTags = [...new Set(notes.map((n) => n.data.tag).filter(Boolean))] as st
         data-category="all"
         role="tab"
         aria-selected="true"
-        class="tab-btn flex-1 py-1.5 px-1.5 sm:px-2 text-xs sm:text-sm font-semibold transition-all duration-200 tab-active bg-black text-white rounded-none whitespace-nowrap"
+        class="tab-btn flex-1 py-1.5 px-1.5 sm:px-2 text-xs sm:text-sm font-semibold transition-all duration-200 tab-active bg-black text-white rounded-sm whitespace-nowrap"
       >
         all
       </button>
@@ -42,7 +42,7 @@ const allTags = [...new Set(notes.map((n) => n.data.tag).filter(Boolean))] as st
           data-category={tag}
           role="tab"
           aria-selected="false"
-          class="tab-btn flex-1 py-1.5 px-1.5 sm:px-2 text-xs sm:text-sm font-medium transition-all duration-200 tab-inactive bg-transparent text-black rounded-none whitespace-nowrap"
+          class="tab-btn flex-1 py-1.5 px-1.5 sm:px-2 text-xs sm:text-sm font-medium transition-all duration-200 tab-inactive bg-transparent text-black rounded-sm whitespace-nowrap"
         >
           {tag.toLowerCase()}
         </button>
