@@ -8,6 +8,29 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
+  - name: "settings"
+    label: "Cài đặt chung"
+    files:
+      - label: "Thông tin cá nhân (Profile)"
+        name: "profile"
+        file: "src/data/profile.json"
+        fields:
+          - {label: "Giới thiệu ngắn gọn", name: "intro", widget: "markdown"}
+          - {label: "Tiểu sử (Bio)", name: "bio", widget: "markdown"}
+          - {label: "Ảnh đại diện (Avatar)", name: "avatarImage", widget: "image", required: false}
+      - label: "Dòng thời gian (Timeline)"
+        name: "timeline"
+        file: "src/data/timeline.json"
+        fields:
+
+          - label: "Các sự kiện"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Icon/Emoji", name: "emoji", widget: "string", hint: "Mẹo: Nhấn tổ hợp phím Windows + . (dấu chấm) để mở bảng chọn Emoji"}
+              - {label: "Tiêu đề", name: "title", widget: "string"}
+              - {label: "Mô tả phụ", name: "subtitle", widget: "string"}
+              - {label: "Thời gian (Năm)", name: "year", widget: "string"}
   - name: "notes"
     label: "Notes (Bài viết)"
     folder: "src/content/notes"
@@ -20,7 +43,7 @@ collections:
       - {label: "Mô tả ngắn", name: "description", widget: "text"}
       - {label: "Ngày đăng", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Ngày cập nhật", name: "updatedDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false}
-      - {label: "Thẻ (Tag)", name: "tag", widget: "select", options: ["Tech Art", "Mobile Game", "Shader", "Design"], default: "Tech Art", required: false}
+      - {label: "Thẻ (Tag)", name: "tag", widget: "select", options: ["Graphic", "Optimize", "Life"], default: "Graphic", required: false}
       - {label: "Ảnh bìa", name: "heroImage", widget: "image", required: false}
       - {label: "Bản nháp", name: "draft", widget: "boolean", default: false}
       - {label: "Nội dung", name: "body", widget: "markdown"}

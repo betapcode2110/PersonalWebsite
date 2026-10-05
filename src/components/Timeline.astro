@@ -1,35 +1,12 @@
 ---
-const timelineItems = [
-  {
-    emoji: '🎨',
-    title: 'Technical Artist / 3D Technical Lead',
-    subtitle: 'Current position',
-    year: 'Present',
-  },
-  {
-    emoji: '🎓',
-    title: 'Education',
-    subtitle: 'To be updated',
-    year: '20XX',
-  },
-];
+import timelineData from '../data/timeline.json';
 ---
 
-<section class="max-w-3xl mx-auto px-6 py-16 mt-12 border-t-2 border-black">
-  <div class="card border-2 border-black rounded-md px-6 py-4 mb-8 animate-fade-in-up bg-white">
-    <p class="text-[#4b5563] text-[15px]">
-      Let's find out!
-      <a
-        href="mailto:tranhoan2971999@gmail.com"
-        class="text-[#1a1a1a] border-b border-dotted border-black hover:border-black transition-colors ml-1 break-all sm:break-normal"
-      >
-        tranhoan2971999@gmail.com
-      </a>
-    </p>
-  </div>
+<section class="max-w-4xl mx-auto px-6 py-16 mt-12 border-t-2 border-black">
+
 
   <div class="space-y-0">
-    {timelineItems.map((item, i) => (
+    {timelineData.items.map((item, i) => (
       <div class:list={['flex gap-4 items-start py-4 border-l-2 border-black pl-6 relative', 'animate-fade-in-up', `delay-${i + 3}`]}>
         {/* Timeline dot */}
         <div class="absolute -left-[9px] top-5 w-4 h-4 rounded-full bg-white border-2 border-black flex items-center justify-center">
@@ -48,7 +25,5 @@ const timelineItems = [
     ))}
   </div>
 
-  <p class="text-[#9ca3af] mt-6 text-sm italic pl-6">
-    Timeline sẽ được cập nhật sau.
-  </p>
+
 </section>
