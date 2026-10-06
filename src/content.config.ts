@@ -13,4 +13,15 @@ const notes = defineCollection({
   }),
 });
 
-export const collections = { notes };
+const projects = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    link: z.string().optional().nullable(),
+    videoSrc: z.string().optional().nullable(),
+    imageSrc: z.string().optional().nullable(),
+  }),
+});
+
+export const collections = { notes, projects };

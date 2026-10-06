@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+type Props = {
+  project: Awaited<ReturnType<typeof getCollection>>[number];
+};
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+let youtubeId = null;
+if (project.data.videoSrc) {
+  const ytMatch = project.data.videoSrc.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+  if (ytMatch) {
+    youtubeId = ytMatch[1];
+  }
+}
+---
+
+<BaseLayout title={`${project.data.title} — hoanhi`}>
+  <article class="max-w-3xl mx-auto px-6 py-16 animate-fade-in-up">
+    <header class="mb-12">
+      <a href="/projects" class="text-sm text-[#6b7280] hover:text-[#1a1a1a] transition-colors inline-flex items-center mb-6">
+        <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to projects
+      </a>
+      
+      <h1 class="text-3xl font-bold text-[#1a1a1a] mb-4">{project.data.title}</h1>
+      {project.data.description && <p class="text-lg text-[#6b7280] leading-relaxed">{project.data.description}</p>}
+      
+      {project.data.link && (
+        <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="inline-flex items-center mt-6 text-[#1a1a1a] font-medium border-b border-[#1a1a1a] hover:text-[#2563eb] hover:border-[#2563eb] transition-colors">
+          Visit Project
+          <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      )}
+    </header>
+
+    <div class="mb-12 rounded-xl overflow-hidden bg-[#f0ece4] aspect-video">
+      {youtubeId ? (
+        <iframe
+          class="w-full h-full"
+          src={`https://www.youtube.com/embed/${youtubeId}?rel=0`}
+          title={project.data.title}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      ) : project.data.videoSrc ? (
+        <video
+          class="w-full h-full object-cover"
+          src={project.data.videoSrc}
+          controls
+          playsinline
+        />
+      ) : project.data.imageSrc ? (
+        <img
+          class="w-full h-full object-cover"
+          src={project.data.imageSrc}
+          alt={project.data.title}
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#f0ece4] to-[#e8e4dc]">
+          <span class="text-6xl opacity-30">🎨</span>
+        </div>
+      )}
+    </div>
+
+    <div class="prose prose-lg prose-slate max-w-none prose-img:rounded-xl prose-img:shadow-sm">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

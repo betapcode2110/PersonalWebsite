@@ -1,23 +1,4 @@
-[
-  {
-    "title": "Project Alpha",
-    "description": "A mobile game project showcasing advanced tech art techniques including custom shaders, procedural animation, and optimized rendering pipeline.",
-    "link": null,
-    "videoSrc": null,
-    "imageSrc": null
-  },
-  {
-    "title": "Shader Collection",
-    "description": "A collection of custom shaders for mobile games — toon shading, water effects, particle systems, and more.",
-    "link": null,
-    "videoSrc": null,
-    "imageSrc": null
-  },
-  {
-    "title": "Art Pipeline Tools",
-    "description": "Custom tools and scripts for streamlining the art production pipeline. Includes batch processors, validation tools, and asset management utilities.",
-    "link": null,
-    "videoSrc": null,
-    "imageSrc": null
-  }
-]
+{
+  "pageTitle": "Things I worked on",
+  "pageDescription": "An overview of some of the projects I have worked on. Some smaller, some bigger. Hover over the videos to watch them play."
+}

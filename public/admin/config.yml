@@ -31,6 +31,26 @@ collections:
               - {label: "Tiêu đề", name: "title", widget: "string"}
               - {label: "Mô tả phụ", name: "subtitle", widget: "string"}
               - {label: "Thời gian (Năm)", name: "year", widget: "string"}
+      - label: "Dự án (Projects)"
+        name: "projects"
+        file: "src/data/projects.json"
+        fields:
+          - {label: "Tiêu đề trang (Page Title)", name: "pageTitle", widget: "string"}
+          - {label: "Mô tả trang (Page Description)", name: "pageDescription", widget: "text"}
+  - name: "projects"
+    label: "Dự án (Projects)"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - {label: "Tên dự án", name: "title", widget: "string"}
+      - {label: "Mô tả", name: "description", widget: "text"}
+      - {label: "Đường dẫn (Link)", name: "link", widget: "string", required: false}
+      - {label: "Video (File hoặc URL YouTube/Vimeo)", name: "videoSrc", widget: "string", required: false}
+      - {label: "Ảnh cover", name: "imageSrc", widget: "image", required: false}
+      - {label: "Nội dung chi tiết", name: "body", widget: "markdown", required: false}
   - name: "notes"
     label: "Notes (Bài viết)"
     folder: "src/content/notes"

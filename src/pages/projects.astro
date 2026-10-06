@@ -1,27 +1,29 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import projects from '../data/projects.json';
+import projectsData from '../data/projects.json';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
 ---
 
 <BaseLayout title="Projects — hoanhi">
   <section class="max-w-4xl mx-auto px-6 py-16">
     <div class="animate-fade-in-up">
-      <h1 class="text-2xl font-bold text-[#1a1a1a] mb-2">Things I worked on</h1>
+      <h1 class="text-2xl font-bold text-[#1a1a1a] mb-2">{projectsData.pageTitle || "Things I worked on"}</h1>
       <p class="text-[#6b7280] mb-10 leading-relaxed">
-        An overview of some of the projects I have worked on. Some smaller, some bigger.
-        Hover over the videos to watch them play.
+        {projectsData.pageDescription || "An overview of some of the projects I have worked on. Some smaller, some bigger. Hover over the videos to watch them play."}
       </p>
     </div>
 
     <div class="grid gap-6">
       {projects.map((project: any, i: number) => (
         <ProjectCard
-          title={project.title}
-          description={project.description}
-          link={project.link}
-          videoSrc={project.videoSrc}
-          imageSrc={project.imageSrc}
+          title={project.data.title}
+          description={project.data.description}
+          link={`/projects/${project.slug}`}
+          videoSrc={project.data.videoSrc}
+          imageSrc={project.data.imageSrc}
           delay={Math.min(i + 1, 10)}
         />
       ))}
