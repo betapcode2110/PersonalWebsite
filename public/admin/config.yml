@@ -37,6 +37,17 @@ collections:
         fields:
           - {label: "Tiêu đề trang (Page Title)", name: "pageTitle", widget: "string"}
           - {label: "Mô tả trang (Page Description)", name: "pageDescription", widget: "text"}
+          - label: "Sắp xếp thứ tự hiển thị"
+            name: "projectOrder"
+            widget: "list"
+            fields:
+              - label: "Dự án"
+                name: "slug"
+                widget: "relation"
+                collection: "projects"
+                search_fields: ["title"]
+                value_field: "{{slug}}"
+                display_fields: ["title"]
   - name: "projects"
     label: "Dự án (Projects)"
     folder: "src/content/projects"

@@ -4,7 +4,19 @@ import ProjectCard from '../components/ProjectCard.astro';
 import projectsData from '../data/projects.json';
 import { getCollection } from 'astro:content';
 
-const projects = await getCollection('projects');
+const orderList = projectsData.projectOrder?.map((item: any) => item.slug) || [];
+
+const projects = (await getCollection('projects')).sort((a, b) => {
+  const indexA = orderList.indexOf(a.slug);
+  const indexB = orderList.indexOf(b.slug);
+  
+  // If a project is not in the list, put it at the end
+  if (indexA === -1 && indexB === -1) return a.data.title.localeCompare(b.data.title);
+  if (indexA === -1) return 1;
+  if (indexB === -1) return -1;
+  
+  return indexA - indexB;
+});
 ---
 
 <BaseLayout title="Projects — hoanhi">

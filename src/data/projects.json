@@ -1,4 +1,9 @@
 {
   "pageTitle": "Things I worked on",
-  "pageDescription": "An overview of some of the projects I have worked on. Some smaller, some bigger. Hover over the videos to watch them play."
+  "pageDescription": "An overview of some of the projects I have worked on. Some smaller, some bigger. Hover over the videos to watch them play.",
+  "projectOrder": [
+    { "slug": "game-technical-art-2025" },
+    { "slug": "shader-collection" },
+    { "slug": "art-pipeline-tools" }
+  ]
 }
