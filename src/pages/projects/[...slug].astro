@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { resolveMedia } from '../../utils/media';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -17,17 +18,11 @@ type Props = {
 const { project } = Astro.props;
 const { Content } = await project.render();
 
-let youtubeId = null;
-if (project.data.videoSrc) {
-  const ytMatch = project.data.videoSrc.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
-  if (ytMatch) {
-    youtubeId = ytMatch[1];
-  }
-}
+const media = resolveMedia(project.data.videoSrc, project.data.imageSrc);
 ---
 
-<BaseLayout title={`${project.data.title} — hoanhi`}>
-  <article class="max-w-3xl mx-auto px-6 py-16 animate-fade-in-up">
+<BaseLayout title={`${project.data.title} — hoanhi`} description={project.data.description} image={media.coverImage || undefined}>
+  <article class="max-w-4xl mx-auto px-6 py-16 animate-fade-in-up">
     <header class="mb-12">
       <a href="/projects" class="text-sm text-[#6b7280] hover:text-[#1a1a1a] transition-colors inline-flex items-center mb-6">
         <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,27 +44,29 @@ if (project.data.videoSrc) {
       )}
     </header>
 
-    <div class="mb-12 rounded-xl overflow-hidden bg-[#f0ece4] aspect-video">
-      {youtubeId ? (
+    {/* Featured Media */}
+    <div class="mb-12 rounded-2xl overflow-hidden bg-black aspect-video shadow-md border border-[#e8e4dc]">
+      {media.embedUrl ? (
         <iframe
           class="w-full h-full"
-          src={`https://www.youtube.com/embed/${youtubeId}?rel=0`}
+          src={media.embedUrl}
           title={project.data.title}
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
-        ></iframe>
-      ) : project.data.videoSrc ? (
+        />
+      ) : media.isDirectVideo ? (
         <video
-          class="w-full h-full object-cover"
-          src={project.data.videoSrc}
+          class="w-full h-full object-contain"
+          src={media.videoSrc}
+          poster={media.coverImage || undefined}
           controls
           playsinline
         />
-      ) : project.data.imageSrc ? (
+      ) : media.coverImage ? (
         <img
           class="w-full h-full object-cover"
-          src={project.data.imageSrc}
+          src={media.coverImage}
           alt={project.data.title}
         />
       ) : (

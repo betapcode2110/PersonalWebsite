@@ -55,11 +55,13 @@ collections:
     slug: "{{slug}}"
     extension: "mdx"
     format: "frontmatter"
+    sortable_fields: ["order", "title", "description"]
     fields:
+      - {label: "Thứ tự", name: "order", widget: "number", value_type: "int", required: false, default: 0}
       - {label: "Tên dự án", name: "title", widget: "string"}
       - {label: "Mô tả", name: "description", widget: "text"}
       - {label: "Đường dẫn (Link)", name: "link", widget: "string", required: false}
-      - {label: "Video (File hoặc URL YouTube/Vimeo)", name: "videoSrc", widget: "string", required: false}
+      - {label: "Video (File hoặc URL YouTube/Vimeo)", name: "videoSrc", widget: "file", required: false}
       - {label: "Ảnh cover", name: "imageSrc", widget: "image", required: false}
       - {label: "Nội dung chi tiết", name: "body", widget: "markdown", required: false}
   - name: "notes"

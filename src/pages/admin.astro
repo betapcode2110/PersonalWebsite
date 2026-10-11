@@ -12,5 +12,31 @@
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script is:inline src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+    <script is:inline>
+      CMS.registerEditorComponent({
+        id: "video",
+        label: "Video",
+        fields: [
+          { name: 'src', label: 'Video File hoặc URL', widget: 'file' },
+          { name: 'title', label: 'Tiêu đề phụ', widget: 'string', required: false }
+        ],
+        pattern: /^<video controls src="(.*?)" title="(.*?)".*?><\/video>$/,
+        fromBlock: function(match) {
+          return {
+            src: match[1],
+            title: match[2]
+          };
+        },
+        toBlock: function(obj) {
+          return `<video controls src="${obj.src || ''}" title="${obj.title || ''}" style="width: 100%; border-radius: 8px; margin: 1em 0;"></video>`;
+        },
+        toPreview: function(obj) {
+          return `<div style="margin: 1.5em 0; text-align: center;">
+            <video controls src="${obj.src || ''}" style="width: 100%; border-radius: 8px;"></video>
+            ${obj.title ? `<p style="color: #6b7280; font-size: 0.875rem; margin-top: 0.5em; font-style: italic;">${obj.title}</p>` : ''}
+          </div>`;
+        }
+      });
+    </script>
   </body>
 </html>

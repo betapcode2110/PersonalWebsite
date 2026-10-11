@@ -1,0 +1,62 @@
+---
+order: 1
+title: "ADHD SQUAD: Dungeon Masters"
+description: Dự án Idle RPG tên ADHD SQUAD. Khám phá quá trình thiết lập ánh
+  sáng, phát triển shader và tối ưu hoá hiệu năng mobile dưới góc nhìn của một
+  Technical Artist.
+link: https://play.google.com/store/apps/details?id=com.skybull.danger.dungeon
+videoSrc: https://www.youtube.com/shorts/6R5qVLYkTbU
+imageSrc: /images/small-room1.png
+---
+## 🎮 Giới thiệu chung
+
+**ADHD SQUAD: Dungeon Masters** là một tựa game mang phong cách lai giữa Casual và Midcore.\
+Đây là 1 dự án khá lớn với số lượng Asset cần quản lý tới hàng nghìn object. Dự án đòi hỏi khả năng quản lý chặt chẽ và tuân thủ nghiêm ngặt các yêu cầu đồ họa
+
+**Engine:** Unity 6 URP\
+**Platfom**: Androi + iOS
+
+- - -
+
+## 🛠️ Vai trò & Đóng góp (Technical Art)
+
+Trong dự án này, tôi tham gia vào khá nhiều công đoạn sản xuất, nhưng trọng tâm lớn nhất của tôi là **Technical Art**, cụ thể là giải quyết bài toán cân bằng giữa chất lượng đồ hoạ và hiệu năng thiết bị di động.
+
+Dưới đây là 3 khía cạnh chính mà tôi phụ trách:
+
+### 1. Setup Lighting (Thiết lập Ánh sáng)
+
+Yêu cầu của art director là phải có shadow real time tương tác từ các ngọn đuốc và đèn của nhân vật, vì vậy cần phải quản lý lighting thật tốt nếu ko nó sẽ trở thành bottle-neck lớn nhất của game. \
+Bài toán đặt ra là trong 1 scene có thể có tới 4-5 nguồn sáng động cùng lúc, đó rất có thể là 1 thảm họa cho chiếc điện thoại của bạn, đặc biệt game còn hướng tới các dòng máy low-end\
+Ở project này tôi sử dụng linh hoạt giữa ánh sáng real time và bake light.\
+Kiểm soát tương tác ánh sáng thông qua rendering layer,\
+Kiểm soát nghiêm ngặt cast shadow cho từng object\
+Các biện pháp này góp phần giảm tải cho rendering khá nhiều
+
+![Setup lighting](/images/adhd_light.png "Setup lighting")
+
+Việc kết hợp giữa Baked Lighting  cho môi trường và Realtime Lighting  cho nhân vật giúp tổng thể game có một "vibe" rất đặc trưng.
+
+![](/images/screenshot-2026-10-09-145333.png)
+
+### 2. Phát triển Shader (Custom Shaders)
+
+Để tạo ra phong cách hình ảnh độc đáo, tôi đã tự viết và tối ưu các custom shaders:
+
+* **Character Shader:** Custom lại lighting model, setup hệ thống quản lý shader và material thông minh. 
+* **VFX Shaders:** Đảm bảo các hiệu ứng vẫn đạt được hiệu quả về mặt thị giác nhưng không tiêu tốn quá nhiều tài nguyên GPU.
+
+  <video controls src="/images/fog-of-war.mp4" title="hệ thống fow of war phiên bản đầu tiê" style="width: 100%; border-radius: 8px; margin: 1em 0;"></video>
+
+  <video controls src="/images/adhd_fow2-1-.mp4" title="phiên bản FOW mới tối ưu về hiệu năng hơn" style="width: 100%; border-radius: 8px; margin: 1em 0;"></video>
+
+  <video controls src="/images/movie_005.mp4" title="" style="width: 100%; border-radius: 8px; margin: 1em 0;"></video>
+
+### 3. Tối ưu hoá hiệu năng (Performance Optimization)
+
+Một trong những thử thách lớn nhất của dòng game Idle/AFK là số lượng quái vật, vật phẩm rớt ra và hiệu ứng kỹ năng xuất hiện cùng lúc trên màn hình là rất lớn. Để đảm bảo mức FPS ổn định (đặc biệt trên các dòng máy cấu hình thấp), tôi đã:
+
+* Tối ưu hoá số lượng Draw Calls bằng cách gộp (batching) các vật liệu (materials) và lưới (meshes).
+* Quản lý chặt chẽ bộ nhớ (Memory Allocation) của các hiệu ứng hạt (Particle Systems).
+* Đơn giản hoá các phép toán phức tạp trong Shader (Shader Math Optimization).
+* *(Bạn có thể chèn các đoạn video showcase hoặc ảnh gif minh hoạ cho các hiệu ứng shader ở đây)*

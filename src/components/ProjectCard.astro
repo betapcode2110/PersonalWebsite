@@ -1,4 +1,6 @@
 ---
+import { resolveMedia } from '../utils/media';
+
 interface Props {
   title: string;
   description?: string;
@@ -10,13 +12,8 @@ interface Props {
 
 const { title, description, link, videoSrc, imageSrc, delay = 0 } = Astro.props;
 
-let youtubeId = null;
-if (videoSrc) {
-  const ytMatch = videoSrc.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
-  if (ytMatch) {
-    youtubeId = ytMatch[1];
-  }
-}
+const media = resolveMedia(videoSrc, imageSrc);
+
 const Tag = link ? 'a' : 'div';
 const tagProps = link ? {
   href: link,
@@ -27,22 +24,12 @@ const tagProps = link ? {
 
 <Tag class:list={['card card-hover overflow-hidden animate-fade-in-up group block', `delay-${delay}`]} {...tagProps}>
   {/* Media section */}
-  {youtubeId ? (
-    <div class="relative aspect-video bg-[#f0ece4] overflow-hidden pointer-events-none">
-      <iframe
-        class="w-full h-full object-cover"
-        src={`https://www.youtube.com/embed/${youtubeId}?rel=0`}
-        title={title}
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
-  ) : videoSrc ? (
+  {media.isDirectVideo ? (
     <div class="relative aspect-video bg-[#f0ece4] overflow-hidden">
       <video
         class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-        src={videoSrc}
+        src={media.videoSrc}
+        poster={media.coverImage || undefined}
         muted
         loop
         playsinline
@@ -51,13 +38,29 @@ const tagProps = link ? {
         onmouseleave="this.pause(); this.currentTime = 0;"
       />
     </div>
-  ) : imageSrc ? (
+  ) : media.coverImage ? (
     <div class="relative aspect-video bg-[#f0ece4] overflow-hidden">
       <img
-        class="w-full h-full object-cover"
-        src={imageSrc}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+        src={media.coverImage}
         alt={title}
         loading="lazy"
+      />
+      {media.hasVideo && (
+        <div class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-xs text-white text-[11px] font-medium px-2 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
+          <span>▶</span>
+          <span>Video</span>
+        </div>
+      )}
+    </div>
+  ) : media.embedUrl ? (
+    <div class="relative aspect-video bg-[#f0ece4] overflow-hidden pointer-events-none">
+      <iframe
+        class="w-full h-full object-cover"
+        src={media.embedUrl}
+        title={title}
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       />
     </div>
   ) : (

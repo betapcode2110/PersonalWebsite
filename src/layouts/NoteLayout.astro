@@ -7,12 +7,13 @@ interface Props {
   pubDate?: Date;
   updatedDate?: Date;
   tag?: string;
+  heroImage?: string;
 }
 
-const { title, description, pubDate, updatedDate, tag } = Astro.props;
+const { title, description, pubDate, updatedDate, tag, heroImage } = Astro.props;
 ---
 
-<BaseLayout title={`${title} — hoanhi`} description={description}>
+<BaseLayout title={`${title} — hoanhi`} description={description} image={heroImage}>
   <article class="max-w-4xl mx-auto px-6 py-12">
     <!-- Back link -->
     <a href="/" class="inline-flex items-center gap-1.5 text-sm text-[#6b7280] hover:text-[#1a1a1a] transition-colors mb-8 group">
@@ -46,6 +47,17 @@ const { title, description, pubDate, updatedDate, tag } = Astro.props;
         </p>
       )}
     </header>
+
+    <!-- Cover Image -->
+    {heroImage && (
+      <div class="mb-10 rounded-2xl overflow-hidden border border-[#e8e4dc] bg-[#f0ece4] shadow-sm animate-fade-in-up delay-1">
+        <img
+          src={heroImage}
+          alt={title}
+          class="w-full max-h-[500px] object-cover"
+        />
+      </div>
+    )}
 
     <!-- Content -->
     <div class="prose prose-lg max-w-none animate-fade-in-up delay-2">

@@ -24,5 +24,40 @@ const { title, description, image } = Astro.props;
       <slot />
     </main>
     <Footer />
+
+    <script>
+      function setupCaptions() {
+        document.querySelectorAll<HTMLImageElement | HTMLVideoElement>('.prose img[title], .prose video[title]').forEach((el) => {
+          const title = el.getAttribute('title')?.trim();
+          if (!title || el.dataset.captioned === 'true' || el.closest('figure')) return;
+          el.dataset.captioned = 'true';
+
+          const figure = document.createElement('figure');
+          figure.className = 'media-figure my-6 flex flex-col items-center w-full';
+
+          const caption = document.createElement('figcaption');
+          caption.className = 'text-center text-xs sm:text-sm text-[#6b7280] mt-2 italic font-mono';
+          caption.textContent = title;
+
+          const parent = el.parentElement;
+          if (parent && parent.tagName === 'P' && parent.children.length === 1 && !parent.textContent?.trim()) {
+            parent.replaceWith(figure);
+            figure.appendChild(el);
+            figure.appendChild(caption);
+          } else {
+            el.replaceWith(figure);
+            figure.appendChild(el);
+            figure.appendChild(caption);
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupCaptions);
+      } else {
+        setupCaptions();
+      }
+      document.addEventListener('astro:page-load', setupCaptions);
+    </script>
   </body>
 </html>
